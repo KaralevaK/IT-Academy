@@ -1,0 +1,52 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}
+Registration
+{% endblock %}
+
+{% block content %}
+<section class="vh-100 mt-0" >
+  <div class="col-md-6 offset-md-3" >
+    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+      <div class="card-body p-5 text-center">
+        <h2 class="mb-3">TODO list</h2>
+        <hr>
+        <h3 class="mb-5">Registration</h3>
+        <form method="post" action="">
+          {% csrf_token %}
+          <label for="username" class="mb-3">{{ form.username.label_tag }}</label>
+          <input class="form-control" type="text" name="username" autofocus autocapitalize="none" maxlength="150" required id="id_username">
+          <label for="password1" class="mb-3 mt-3">{{ form.password1.label_tag }}</label>
+          <input class="form-control" type="password" name="password1" required id="id_password1">
+          <label for="password2" class="mb-3 mt-3">{{ form.password2.label_tag }}</label>
+          <input class="form-control" type="password" name="password2" required id="id_password2">
+          <input type="submit" name="Create user" value="Register" class="btn btn-success btn-lg btn-block mt-5">
+        </form>
+        <p class="float-right"> {{ form.errors }}</p>
+        <hr>
+          <!-- {% if messages %}
+          {% for mes in messages %}
+          <p class="text-start">{{ mes.tags}}</p>
+          <p class="float-right">{{ mes|safe }}</p>
+          {% endfor %}
+          {% endif %} -->
+<!--  -->
+        <p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>   
+      </div>
+   </div>
+  </div>
+</section>
+
+
+
+      {% endblock %}
+      
+      <!-- {% if messages %}
+          <div class="messages border-success rounded-3 mb-3">
+              <ul class="messages list-group">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+              {% endfor %}
+              </ul>
+          </div>
+          {% endif %} -->

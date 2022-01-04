@@ -1,0 +1,75 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+            <h3 class="mb-3">TODO list
+            {% if deadline_today %}  - deadline is today:{% endif %}</h3>
+            {% if tasks %}
+        
+            <ul class="list-group d-grid gap-3">
+                {% for task in tasks%}
+                    {% if task.complete %}
+                        <li class="list-group-item list-group-item-success border-success rounded-3">
+                    {% else %}    
+                        <li class="list-group-item list-group-item-light rounded-3">   
+                    {% endif %}
+                    <div class="row">
+                        <div >
+                            {% if task.complete %}
+                            <p class="position-absolute top-0 end-0">Task completed!</p>
+                        {% else %} 
+                            <p class="position-absolute top-0 end-0"> Task is not completed.</p>  
+                        {% endif %}
+                        </div>
+                        
+                        <h3>{{ task.title }}</h3>
+                        <p>{{ task.description }}</p>
+                        
+                        {% if task.deadline !=  None %}
+                        <hr class="my-4">
+                        <p>Deadline: {{ task.deadline }}</p>
+                        {% endif %}
+
+                    </div>
+                    <div class="row">
+                        <div class="col col-lg-2">
+                        <!-- <div class="col float-left"> -->
+                            <form action="complete_todo/{{ task.id }}/" method="post"> 
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success w-75">
+                                {% if task.complete %}
+                                    Not done =(
+                                {% else %}
+                                    Completed!
+                                {% endif %}
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col col-lg-2">
+                        <!-- <div class="col float-right"> -->
+                            <form action="delete_todo/{{ task.id }}/" method="post" > 
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success w-75" >Delete</button>
+                            </form>
+                        </div>
+                        {% if not task.complete %}
+                        <div class="col col-lg-2">
+                        <!-- <div class="col float-right"> -->
+                            <form action="edit/{{ task.id }}/" method="post"> 
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success w-75">Edit</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                        </div>
+                        </li>
+            {% endfor %} 
+        </ul>
+        
+    {% else %}
+        <p>Tasks not founded!</p>
+    {% endif %}
+{% endblock %}   

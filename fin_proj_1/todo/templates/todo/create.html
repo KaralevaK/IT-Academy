@@ -1,0 +1,20 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<h3>Create task</h3>
+    <form method="post" class="d-grid gap-3">
+        {% csrf_token %}
+        {{ form.title }}
+        {{ form.description }}
+        <!-- {{ form.deadline }} -->
+        <label for="deadline">Deadline (optional):</label>
+        <input type="date" name="deadline" class="form-control w-25" placeholder="Deadline yyyy-mm-dd" id="id_deadline" value='{{ form.deadline }}' min='{{now}}'>
+        <button type="submit" class="btn btn-success">Add</button>
+        <span>{{ error }}</span>
+   </form>
+{% endblock %}
